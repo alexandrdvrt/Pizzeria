@@ -1,0 +1,35 @@
+{% extends "input.html" %}
+
+{% block title %}Адрес клиента{% endblock %}
+{% block name_of_search %}Показать адрес клиента по номеру телефона{% endblock %}
+{% block form %}
+<form action="/assortment/show-address" method="POST">
+    <tr>
+        <td><input type="text" name="phone_number" placeholder="Номер телефона" autocomplete="off"></td>
+    </tr>
+    <tr>
+        <td style="padding: 0;"><input type="submit" value="Отправить"></td>
+    </tr>
+</form>
+{% endblock %}
+
+{% block result_data %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Фамилия клиента</th>
+        <th>Номер телефона</th>
+        <th>Адрес клиента</th>
+        <th>Дата обновления</th>
+    </tr>
+    {% for item in result %}
+    <tr>
+        <td>{{ item['customer_id'] }}</td>
+        <td>{{ item['customer_lastname'] }}</td>
+        <td>{{ item['phone_number'] }}</td>
+        <td>{{ item['customer_address'] }}</td>
+        <td>{{ item['date_added'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet href="/static/style.css">
+    <title>Запросы</title>
+</head>
+
+<body>
+    <div class="infodiv" id="info">
+        <table>
+            <tr><th>Выберите запрос</th></tr>
+            {% if role == 'courier' %}
+            <tr><td><a href="/assortment/show-address">Показать адрес клиента по номеру телефона</a></td></tr>
+            <tr>
+                <td><a href="/assortment/show-orders-by-phone">Показать заказы клиента по номеру телефона</a></td>
+            </tr>
+            {% endif %}
+            {% if role == 'manager' %}
+            <tr>
+                <td><a href="/assortment/show-count-orders">Показать число выполненных заказов каждого курьера</a></td>
+            </tr>
+            <tr>
+                <td><a href="/assortment/show-couriers">Показать курьеров, трудоустроенных с заданной даты</a></td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td style="padding: 0;"><form action="/"><input type="submit" value="Вернуться на главную"></form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    {% if message %}
+    <div class="errordiv" id="error">
+        {{ message }}
+    </div>
+    {% endif %}
+    <script>
+        const infodiv = document.querySelector('#info');
+        const errordiv = document.querySelector('#error');
+        errordiv.style.width = getComputedStyle(infodiv).width;
+    </script>
+</body>
+
+</html>

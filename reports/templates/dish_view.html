@@ -1,0 +1,22 @@
+{% extends "rep_view.html" %}
+{% block name_of_report %}Отчет по блюдам{% endblock %}
+{% block action %}/reports/view-dishes{% endblock %}
+
+{% block name_of_columns %}
+<th>Название продукта</th>
+<th>Продано</th>
+<th>Год</th>
+<th>Месяц</th>
+{% endblock %}
+
+{% block name_of_rows %}
+{% for item in result %}
+<tr>
+    <td>{{ item['name'] }}</td>
+    <td>{{ item['amount'] }} {{ item['measure'] }}</td>
+    <td>{{ item['year'] }}</td>
+    <td>{{ item['month'] }}</td>
+</tr>
+{% endfor %}
+
+{% endblock %}

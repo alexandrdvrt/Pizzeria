@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet href="/static/style.css">
+    <title>Работа с отчетами</title>
+</head>
+
+<body>
+    <div class="infodiv" id="info">
+        <table>
+            <tr>
+                <th colspan="3">
+                    Меню отчетов
+                </th>
+            </tr>
+            {% for report in reports %}
+            <!-- <form id='create-report' method='POST' action="/create-report">
+                <input type="submit" value="test">
+                <input type="hidden" name="rep_id" value={{ report['rep_id'] }}>
+            </form> -->
+            <tr>
+                <td>
+                    {{ report['rep_name'] }}
+                </td>
+                {% if role == 'manager' %}
+                <td>
+                    <a href={{ report['create_rep'] }}>Создать</a>
+                </td>
+                {% endif %}
+                <td>
+                    <a href={{ report['view_rep'] }}>Просмотр</a>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td style="padding: 0;" colspan="3">
+                    <form action="/">
+                        <input type="submit" value="Вернуться на главную">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        const infodiv = document.querySelector('#info');
+        const errordiv = document.querySelector('#error');
+        errordiv.style.width = getComputedStyle(infodiv).width;
+    </script>
+</body>
+
+</html>

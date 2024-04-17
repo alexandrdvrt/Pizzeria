@@ -1,0 +1,6 @@
+{
+    "host": "127.0.0.1",
+    "database": "pizza_order",
+    "user": "root",
+    "password": "password"
+}

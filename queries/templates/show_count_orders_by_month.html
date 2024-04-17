@@ -1,0 +1,43 @@
+{% extends "input.html" %}
+
+{% block title %}Число заказов{% endblock %}
+{% block name_of_search %}Показать число выполненных заказов каждого курьера{% endblock %}
+{% block form %}
+<form action="/assortment/show-count-orders" method="POST">
+    <tr>
+        <td>
+            <input type="month" name="date" placeholder="Дата" autocomplete="off">
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 0;">
+            <input type="submit" value="Отправить">
+        </td>
+    </tr>
+</form>
+{% endblock %}
+
+{% block result_data %}
+<table style="max-width: 1000px;">
+    <tr>
+        <th>Год</th>
+        <th>Месяц</th>
+        <th>ID курьера</th>
+        <th>Паспортные данные</th>
+        <th>Дата трудоустройства</th>
+        <th>Дата последнего выполненного заказа</th>
+        <th>Количество выполненных заказов</th>
+    </tr>
+    {% for item in result %}
+    <tr>
+        <td>{{ item['year'] }}</td>
+        <td>{{ item['month'] }}</td>
+        <td>{{ item['courier_id'] }}</td>
+        <td>{{ item['courier_data'] }}</td>
+        <td>{{ item['hire_date'] }}</td>
+        <td>{{ item['max'] }}</td>
+        <td>{{ item['count'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "rep_view.html" %}
+{% block name_of_report %}Отчет по продажам{% endblock %}
+{% block action %}/reports/view-sales{% endblock %}
+
+{% block name_of_columns %}
+<th>Год</th>
+<th>Месяц</th>
+<th>Название продукта</th>
+<th>Количество</th>
+<th>Сумма</th>
+{% endblock %}
+
+{% block name_of_rows %}
+{% for item in result %}
+<tr>
+    <td>{{ item['year'] }}</td>
+    <td>{{ item['month'] }}</td>
+    <td>{{ item['name'] }}</td>
+    <td>{{ item['amount'] }} {{ item['measure'] }}</td>
+    <td>{{ item['income'] }}₽</td>
+</tr>
+{% endfor %}
+
+{% endblock %}
+
+{% block total %}
+<td colspan="4" style="text-align: right;">
+    Итого:
+</td>
+<td>
+    {{ income }}₽
+</td>
+{% endblock %}

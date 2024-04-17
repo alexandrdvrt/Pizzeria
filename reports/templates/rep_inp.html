@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet href="/static/style.css">
+    <title>Работа с отчетами</title>
+</head>
+
+<body>
+    <div class="infodiv" id="info">
+        <table>
+            <tr>
+                <th>
+                    {% block name_of_report %}{% endblock %}
+                </th>
+            </tr>
+            <form action={% block action %}{% endblock %} method="POST">
+                <tr>
+                    <td style="padding: 0;">
+                        <input type="month" placeholder="Отчетный период" name="date" autocomplete="off">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0;">
+                        <input type="submit" value="Подтвердить">
+                    </td>
+                </tr>
+            </form>
+            <tr>
+                <td style="padding: 0;">
+                    <form action="/reports">
+                        <input type="submit" value="Вернуться к выбору">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="reps">
+        <table>
+            <tr>
+                <h3>Созданные отчёты:</h3>
+            </tr>
+            <tr>
+                <th>Год</th>
+                <th>Месяц</th>
+            </tr>
+            {% for item in reps %}
+            <tr>
+                <td>{{ item['rep_year'] }}</td>
+                <td>{{ item['rep_month'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% if message %}
+    <div class="errordiv" id="error">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% if create_flag %}
+    <div class="creatediv" id="create">
+        Отчет создан
+    </div>
+    {% endif %}
+    <script>
+        const infodiv = document.querySelector('#info');
+        const errordiv = document.querySelector('#error');
+        const creatediv = document.querySelector('#create');
+
+        if (errordiv) {
+            errordiv.style.width = getComputedStyle(infodiv).width;
+        }
+
+        if (creatediv) {
+            creatediv.style.width = getComputedStyle(infodiv).width;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+{% extends "input.html" %}
+
+{% block title %}Заказ клиента{% endblock %}
+{% block name_of_search %}Показать заказы клиента по номеру телефона{% endblock %}
+{% block form %}
+<form action="/assortment/show-orders-by-phone" method="POST">
+    <tr>
+        <td><input type="text" name="phone_number" placeholder="Номер телефона" autocomplete="off"></td>
+    </tr>
+    <tr>
+        <td style="padding: 0;"><input type="submit" value="Отправить"></td>
+    </tr>
+</form>
+{% endblock %}
+
+{% block result_data %}
+<table>
+    <tr>
+        <th>Дата заказа</th>
+        <th>Номер телефона</th>
+        <th>Фамилия клиента</th>
+        <th>Название пиццы</th>
+        <th>Цена</th>
+    </tr>
+    {% for item in result %}
+    <tr>
+        <td>{{ item['order_time'] }}</td>
+        <td>{{ item['phone_number'] }}</td>
+        <td>{{ item['customer_lastname'] }}</td>
+        <td>{{ item['dish_name'] }}</td>
+        <td>{{ item['dish_price'] }}₽</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

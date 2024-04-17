@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet href="/static/style.css">
+    <title>Супермаркет</title>
+</head>
+
+<body>
+    <div class="infodiv" id="info">
+        <table>
+            <tr>
+                <th>
+                    Главное меню
+                </th>
+            </tr>
+            {% if login %}
+            {% if role == 'manager' or role == 'courier' %}
+            <tr>
+                <td>
+                    <a href="/assortment">Работа с запросами</a>
+                </td>
+            </tr>
+            {% endif %}
+            {% if role == 'manager' or role == 'director' %}
+            <tr>
+                <td>
+                    <a href="/reports">Работа с отчётами</a>
+                </td>
+            </tr>
+            {% endif %}
+            {% if role == 'external' %}
+            <tr>
+                <td>
+                    <a href="/basket">Продукты</a>
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>
+                    <a href="/auth/logout">Выход</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td>
+                    <a href="/auth">Войти</a>
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+    {% if message %}
+    <div class="errordiv" id="error">
+        {{ message }}
+    </div>
+    {% endif %}
+    <script>
+        const infodiv = document.querySelector('#info');
+        const errordiv = document.querySelector('#error');
+        errordiv.style.width = getComputedStyle(infodiv).width;
+    </script>
+</body>
+
+</html>

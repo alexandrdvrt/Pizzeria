@@ -1,0 +1,18 @@
+[
+    {
+        "rep_name": "Отчет по продажам",
+        "rep_id": "1",
+        "url": {
+            "create_rep": "/reports/create-sales",
+            "view_rep": "/reports/view-sales"
+        }
+    },
+    {
+        "rep_name": "Отчет по блюдам",
+        "rep_id": "2",
+        "url": {
+            "create_rep": "/reports/create-dishes",
+            "view_rep": "/reports/view-dishes"
+        }
+    }
+]

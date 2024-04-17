@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet href="/static/style.css">
+    <title>Корзина</title>
+    <style>
+        tbody {
+            max-height: 30vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: block;
+            min-width: 700px;
+        }
+
+        td {
+            min-width: 184px;
+            height: 0;
+        }
+    </style>
+</head>
+
+<form action="/basket/add" method="POST" id="add_product"></form>
+
+<body>
+    <div class="infodiv" id="info">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="3">
+                        Корзина
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>
+                        {{ product['dish_name'] }}
+                    </td>
+                    <td>
+                        {{ product['dish_price'] }}₽
+                    </td>
+                    <td>
+                        {{ product['prod_quantity'] }} {{ product['dish_measure'] }}
+                    </td>
+                    <td style="padding: 0;" colspan="3">
+                        <form action="/basket/delete-current" method="POST">
+                            <input type="hidden" name="dish_code" value="{{ product['dish_code'] }}">
+                            <input type="submit" value="Удалить">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        Итого: {{ total_price }}₽
+                    </td>
+                </tr>
+                <form action="/basket/create-order" method="POST">
+                    <!--<tr>
+                        <td>
+                            <input type="text" placeholder="Ваше имя" name="mail">
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td style="padding: 0;" colspan="3">
+                            <input type="submit" value="Заказ">
+                        </td>
+                    </tr>
+                </form>
+
+                <tr>
+                    <td style="padding: 0;" colspan="3">
+                        <form action="/basket/delete">
+                            <input type="submit" value="Очистить корзину">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0;" colspan="3">
+                        <form action="/basket">
+                            <input type="submit" value="Вернуться на страницу блюд">
+                        </form>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="errordiv" id="error">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <script>
+        window.onload = function () {
+            const infodiv = document.querySelector('#info');
+            const errordiv = document.querySelector('#error');
+            const creatediv = document.querySelector('#create');
+
+            if (errordiv) {
+                errordiv.style.width = getComputedStyle(infodiv).width;
+            }
+
+            if (creatediv) {
+                creatediv.style.width = getComputedStyle(infodiv).width;
+            }
+        }
+    </script>
+</body>
+
+</html>

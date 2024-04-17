@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet href="/static/style.css">
+    <title>Блюда</title>
+    <style>
+        tbody {
+            max-height: 60vh;
+            overflow-y: auto;
+            display: block;
+        }
+
+        td {
+            min-width: 180px;
+            height: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="infodiv" id="info">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4">
+                        Блюда
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody_for_table">
+                {% for product in products %}
+                <tr>
+                    <td>
+                        {{ product['dish_name'] }} ({{ product['dish_measure'] }})
+                    </td>
+                    <td>
+                        {{ product['dish_price'] }}₽
+                    </td>
+                    <form action="/basket" method="POST">
+                        <td>
+                            <input type="hidden" name="dish_price" value="{{ product['dish_price'] }}">
+                            <input type="hidden" name="dish_measure" value="{{ product['dish_measure'] }}">
+                            <input type="hidden" name="dish_name" value="{{ product['dish_name'] }}">
+                            <input type="hidden" name="dish_code" value="{{ product['dish_code'] }}">
+                            <input type="number" name="prod_quantity" value="1" min="1" max="100">
+                        </td>
+                        <td style="padding: 0;">
+                            <input type="submit" value="Добавить в корзину">
+                        </td>
+                    </form>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="padding: 0;">
+                        <form action="/basket/show">
+                            <input type="submit" style="width: 100%; height: 50px;" value="Корзина">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0;">
+                        <form action="/">
+                            <input type="submit" style="width: 100%; height: 50px;" value="Вернуться на главную">
+                        </form>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+    <div class="errordiv" id="error">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {% if create_flag %}
+    <div class="creatediv" id="create">
+        Продукт добавлен в корзину
+    </div>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+    {% if category == 'create_order' %}
+    <div class="creatediv" id="create">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endwith %}
+
+    <script>
+        setTimeout(function () {
+            var createDiv = document.getElementById('create');
+            var opacity = 1;  // начальная прозрачность
+            var timer = setInterval(function () {
+                if (opacity <= 0.1) {
+                    clearInterval(timer);
+                    createDiv.style.display = 'none';
+                }
+                createDiv.style.opacity = opacity;
+                createDiv.style.filter = 'alpha(opacity=' + opacity * 100 + ")";
+                opacity -= opacity * 0.1;
+            }, 50);
+        }, 1000);
+
+        window.onload = function () {
+            const infodiv = document.querySelector('#info');
+            const errordiv = document.querySelector('#error');
+            const creatediv = document.querySelector('#create');
+
+            if (errordiv) {
+                errordiv.style.width = getComputedStyle(infodiv).width;
+            }
+
+            if (creatediv) {
+                creatediv.style.width = getComputedStyle(infodiv).width;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet href="/static/style.css">
+    <title>Работа с отчетами</title>
+</head>
+
+<body>
+    <div class="infodiv" id="info">
+        <table>
+            <tr>
+                <th>
+                    {% block name_of_report %}{% endblock %}
+                </th>
+            </tr>
+            <form action={% block action %}{% endblock %} method="POST">
+                <tr>
+                    <td style="padding: 0;">
+                        <input type="month" placeholder="Отчетный период" name="date" autocomplete="off">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0;">
+                        <input type="submit" value="Просмотреть">
+                    </td>
+                </tr>
+            </form>
+            <tr>
+                <td style="padding: 0;">
+                    <form action="/reports">
+                        <input type="submit" value="Вернуться к выбору">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    {% if not result %}
+    <br>
+    <div class="reps">
+        <table>
+            <tr>
+                <h3>Созданные отчёты:</h3>
+            </tr>
+            <tr>
+                <th>Год</th>
+                <th>Месяц</th>
+            </tr>
+            {% for item in reps %}
+            <tr>
+                <td>{{ item['rep_year'] }}</td>
+                <td>{{ item['rep_month'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    {% if result %}
+    <br>
+    <div class="infodiv">
+        <table>
+            <tr>
+                {% block name_of_columns %}{% endblock %}
+            </tr>
+            {% block name_of_rows %}{% endblock %}
+            <tr>
+                {% block total %}{% endblock %}
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+    {% if message %}
+    <div class="errordiv" id="error">
+        {{ message }}
+    </div>
+    {% endif %}
+    <script>
+        const infodiv = document.querySelector('#info');
+        const errordiv = document.querySelector('#error');
+
+        if (errordiv) {
+            errordiv.style.width = getComputedStyle(infodiv).width;
+        }
+    </script>
+</body>
+
+</html>

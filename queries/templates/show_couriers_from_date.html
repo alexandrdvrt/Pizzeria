@@ -1,0 +1,43 @@
+{% extends "input.html" %}
+
+{% block title %}Показать курьеров{% endblock %}
+{% block name_of_search %}Показать курьеров, трудоустроенных с заданной даты{% endblock %}
+{% block form %}
+<form action="/assortment/show-couriers" method="POST">
+    <tr>
+        <td><input type="date" name="date" placeholder="Дата" autocomplete="off"></td>
+    </tr>
+    <tr>
+        <td style="padding: 0;"><input type="submit" value="Отправить"></td>
+    </tr>
+</form>
+{% endblock %}
+
+{% block result_data %}
+<div id="tableContainer" style="width: 100%; overflow: auto;">
+    <table id="dataTable">
+        <tr>
+            <th>ID</th>
+            <th>Паспортные данные</th>
+            <th>Дата трудоустройства</th>
+            <th>Дата увольнения</th>
+        </tr>
+        {% for item in result %}
+        <tbody>
+            <td>{{ item['courier_id'] }}</td>
+            <td>{{ item['courier_data'] }}</td>
+            <td>{{ item['hire_date'] }}</td>
+            <td>{{ item['fire_date'] }}</td>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+<script>
+    window.onload = function () {
+        var table = document.getElementById('dataTable');
+        var container = document.getElementById('tableContainer');
+        container.style.height = (table.rows.length * 15 + 100) + 'px';
+    }
+</script>
+{% endblock %}

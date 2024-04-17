@@ -1,0 +1,23 @@
+{
+    "director": [
+        "reports_index_handler",
+        "report_view_sales",
+        "report_view_dishes"
+    ],
+    "courier": [
+        "show_by_phone_handler",
+        "show_order_by_phone_handler"
+    ],
+    "external": [
+        "basket_app"
+    ],
+    "manager": [
+        "show_count_orders_handler",
+        "show_couriers_by_date_handler",
+        "reports_index_handler",
+        "report_create_sales",
+        "report_view_sales",
+        "report_create_dishes",
+        "report_view_dishes"
+    ]
+}
