@@ -26,3 +26,5 @@ ELSE
 SET @result_message = "Отчет уже существует";  
 END IF;  
 END  
+End user UML diagram:  
+![image](https://github.com/alexandrdvrt/Pizzeria/assets/94928103/104170d5-dcd7-4851-b0cd-e1c9f5171ff2)
