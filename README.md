@@ -1,5 +1,5 @@
 ![image](https://github.com/alexandrdvrt/Pizzeria/assets/94928103/65f3feb8-2d94-4830-a715-5a5a75c21bcd)
-Procedure:  
+Procedure for reports:  
 CREATE DEFINER=root`@`localhost PROCEDURE fillReports(IN rep_date DATE)  
 BEGIN  
 DECLARE r_year, r_month, prd_id INTEGER;  
